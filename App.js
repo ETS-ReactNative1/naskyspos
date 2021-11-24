@@ -1,21 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {Ionicons} from '@expo/vector-icons';
+import stock from './screens/stock.js';
+import menu from './screens/menu.js';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    //CartProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+        <Stack.Screen name='stock' component={stock} 
+          options={({ navigation }) => ({
+            title: 'STOCK',
+            headerTitleAlign: 'center',
+            headerTitleStyle: styles.headerTitle,
+            })} />
+          <Stack.Screen name='menu' component={menu} 
+          options={({ navigation }) => ({
+            title: "NASKY'S",
+            headerTitleAlign: 'center',
+            headerTitleStyle: styles.headerTitle,
+            headerRight: () => <Ionicons style={styles.morebutton} name='ios-menu' size={28} onPress={() => {navigation.navigate('stock');}}/>
+          })} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    //CartProvider>
   );
 }
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  headerTitle: {
+    fontSize: 20,
+    fontStyle: 'italic',
+    color: '#f09b5a'
   },
+  morebutton:{
+    marginRight: '2%',
+  }
 });
+export default App;
