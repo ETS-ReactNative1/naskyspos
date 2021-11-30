@@ -1,29 +1,22 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CartContext } from '../CartContext';
-export const carticon = ({route}) => {
+export function CartIcon({navigation}) {
   const {getItemsCount} = useContext(CartContext);
-  const {onRemoveFromCart} = useContext(CartContext);
-  const {onAddToCart} = useContext(CartContext);
   return (
-    <TouchableOpacity>
+    <View style={styles.container}>
       <Text style={styles.text} 
-        onPress={onRemoveFromCart()}
-      >-</Text>
-      <Text style={styles.text}>
-          ({getItemsCount()})
-          </Text>
-      <Text style={styles.text} 
-        onPress={onAddToCart()}
-      >+</Text>
-    </TouchableOpacity>
+        onPress={() => {
+          navigation.navigate('Cart');
+        }}
+      >Cart ({getItemsCount()})</Text>
+    </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 8,
-    backgroundColor: 'black',
+    backgroundColor: '#f19c5b',
     height: 32,
     width: 80,
     padding: 5,
